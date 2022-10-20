@@ -33,15 +33,15 @@ defaults
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
 
-# start of parameters for beta-scribbles.tech
-frontend betascribbles.tech-http-frontend
+# start of parameters for supremecomms.tech
+frontend supremecomms.tech-http-frontend
 	bind	 *:80
 	http-request set-header X-Forwarded-Proto http
 	default_backend	 supremecomms.tech-backend
 
 
 frontend  supremecomms.tech-https-frontend
-	bind *:443 ssl crt /etc/ssl/supremecomms.tech.pem
+	bind *:443 ssl crt /etc/haproxy/supremecomms.tech.pem
 	http-request set-header X-Forwarded-Proto https
         default_backend supremecomms.tech-backend
 
@@ -49,7 +49,5 @@ frontend  supremecomms.tech-https-frontend
 backend supremecomms.tech-backend
         balance roundrobin
         server 9386-web-01 3.238.174.143:80 check
-        server 9386-web-02 44.201.94.124:80 check
+	server 9386-web-02 44.201.94.124:80 check
 # end of parameters
-backend letsencrypt-backend
-    server letsencrypt 127.0.0.1:54321
